@@ -13,8 +13,8 @@ const base = pick(spec.ops, spec.budget);
 const planned = plan(spec.ops, spec.budget, spec.pinned || []);
 const view = render(spec);
 
-emit("选中的算子 =", JSON.stringify(planned.chosen));
-emit("被裁掉的算子 =", JSON.stringify(planned.pruned));
+emit("选中的算子 =", planned.chosen);
+emit("被裁掉的算子 =", planned.pruned);
 emit("是否降级 =", planned.degraded);
 emit("实际代价 =", planned.cost);
 emit("是否覆盖全部算子 =", view.covered);
