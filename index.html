@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><title>budgetplan</title>
+<style>body{font-family:system-ui,sans-serif;margin:24px;max-width:960px}
+textarea{width:100%;height:150px;font-family:ui-monospace,monospace}
+button{padding:6px 12px;margin:8px 8px 8px 0}pre{background:#f6f6f6;padding:10px;border-radius:6px;overflow:auto}
+.ok{color:#0a7}.bad{color:#c00}</style>
+</head>
+<body>
+<h1>budgetplan 工作台</h1>
+<p>改样例里的算子、代价与预算再点运行，结果给选中的算子、被裁掉的算子与降级标记。</p>
+<textarea id="input">{
+  "required_pruned_code": "E_REQUIRED_PRUNED",
+  "budget": 6,
+  "pinned": ["o0"],
+  "ops": [
+    {"id": "o0", "cost": 2, "required": true},
+    {"id": "o1", "cost": 5, "required": false},
+    {"id": "o2", "cost": 1, "required": false},
+    {"id": "o3", "cost": 4, "required": false}
+  ],
+  "fallback": "cheap"
+}</textarea>
+<div><button id="run">运行</button><span id="status" class="ok">等待</span></div>
+<pre id="out">还没跑</pre>
+<script type="module">
+import { render } from "./app.js";
+
+document.getElementById("run").addEventListener("click", function () {
+  const status = document.getElementById("status");
+  try {
+    const spec = JSON.parse(document.getElementById("input").value);
+    const result = render(spec);
+    status.className = "ok";
+    status.textContent = "完成";
+    document.getElementById("out").textContent = JSON.stringify(result, null, 1);
+  } catch (error) {
+    status.className = "bad";
+    status.textContent = "出错 " + error.message;
+    document.getElementById("out").textContent = String(error && error.stack ? error.stack : error);
+  }
+});
+</script>
+</body>
+</html>

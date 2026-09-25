@@ -1,0 +1,12 @@
+{
+  "required_pruned_code": "E_REQUIRED_PRUNED",
+  "budget": 6,
+  "pinned": ["o0"],
+  "ops": [
+    {"id": "o0", "cost": 2, "required": true},
+    {"id": "o1", "cost": 5, "required": false},
+    {"id": "o2", "cost": 1, "required": false},
+    {"id": "o3", "cost": 4, "required": false}
+  ],
+  "fallback": "cheap"
+}
